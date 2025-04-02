@@ -1,0 +1,192 @@
+"use client";
+import React, { useState } from "react";
+import Image from "next/image";
+import AshraeLogo from "../../../public/images/home/asrae-logo.png";
+import { SlMenu } from "react-icons/sl";
+import { RxCross1 } from "react-icons/rx";
+import { HeartIcon, SearchIcon, UnionIcon, UserIcon } from "@/features/icons";
+import { Button } from "../button";
+import { useCartStore } from "@/services";
+import { useRouter } from "next/navigation";
+
+export function Header() {
+  const { items } = useCartStore();
+  const route = useRouter();
+
+  const handleNavigate = () => {
+    route.push("/shopping-cart");
+  };
+
+  // State to track the visibility of the mobile menu
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+
+  return (
+    <header className="bg-customPurple header-main w-full px-4 md:px-10 xl:px-[6vw] py-2 lg:py-[1vw] ">
+      {/* Main container of the header */}
+      <div className="flex justify-between items-center ">
+        {/* Logo Section */}
+        <div className="w-[10rem] lg:w-[12vw]">
+          <Image
+            src={AshraeLogo}
+            alt="carpet-market-logo"
+            className="w-full h-full"
+          />
+        </div>
+
+        {/* Hamburger Menu */}
+
+        <div
+          className={`hidden lg:flex duration-300 flex-col lg:flex-row max-lg:top-full max-lg:left-0 max-lg:py-6 max-md:px-4 max-lg:px-10 max-lg:z-20 max-lg:w-full max-lg:shadow-xl max-lg:bg-backgroundlinear gap-4 lg:gap-[2vw]`}
+        >
+          <div className="w-full lg:w-[22%] lg:px-[0vw] px-[2vw]">
+            <select
+              id="countries"
+              className="asrae-input 2xl:w-[11vw] 2xl:h-[3vw] text-[1rem] 2xl:text-[1vw]"
+            >
+              <option defaultValue={"Dubai"}> Dubai</option>
+              <option value="US">United States</option>
+              <option value="CA">Canada</option>
+              <option value="FR">France</option>
+              <option value="DE">Germany</option>
+            </select>
+          </div>
+
+          <div className="flex ">
+            <button
+              id="dropdown-button"
+              data-dropdown-toggle="dropdown"
+              className="flex-shrink-0 z-10 inline-flex items-center py-2 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600 text-[1rem] 2xl:text-[1vw]"
+              type="button"
+            >
+              All categories{" "}
+              <svg
+                className="w-2.5 h-2.5 ms-2.5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="m1 1 4 4 4-4"
+                />
+              </svg>
+            </button>
+            <div
+              id="dropdown"
+              className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+            >
+              <ul
+                className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                aria-labelledby="dropdown-button"
+              >
+                <li>
+                  <button
+                    type="button"
+                    className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >
+                    Mockups
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >
+                    Templates
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >
+                    Design
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >
+                    Logos
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div className="relative w-full">
+              <input
+                type="search"
+                id="search-dropdown"
+                className="block p-2.5 w-[25vw] sm:w-[50vw] md:w-[40vw] lg:w-[30vw] xl:w-[25vw] z-20 2xl:h-[3vw] 2xl:w-[30vw] text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 focus:outline-none text-[1rem] 2xl:text-[1vw]"
+                placeholder="Search anything"
+                required
+              />
+              <button
+                type="submit"
+                className="absolute top-0 m-1 p-1 end-0 text-white bg-purple-700 rounded border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 mt-[0.4rem]"
+              >
+                <SearchIcon customSize="w-[1.5rem] h-[1.5rem] 2xl:w-[2vw] 2xl:h-[2vw]" />
+                <span className="sr-only">Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          className={`${
+            isVisible ? "flex" : "hidden lg:flex"
+          } w-full h-full lg:w-auto lg:h-auto absolute left-0 top-[5rem] lg:top-[0.7rem] pt-10 lg:pt-0 bg-black lg:bg-transparent lg:relative justify-around gap-3 z-10`}
+        >
+          <div className="flex justify-center items-center p-[0.5rem] mb-5 border">
+            <UserIcon customSize="w-[2rem] h-[2rem] 2xl:w-[2vw] 2xl:h-[2vw]" />
+          </div>
+
+          <div className="flex justify-center items-center p-[0.5rem] mb-5 border">
+            <HeartIcon customSize="w-[2rem] h-[2rem] 2xl:w-[2vw] 2xl:h-[2vw]" />
+          </div>
+
+          {/* Action Buttons (User, Wishlist, Cart) */}
+
+          <div>
+            <div
+              className="flex absolute z-50 justify-center items-center w-[1.5rem] right-0 bottom-[1.5rem]
+               2xl:w-[1.5vw] h-[1.5rem] 2xl:h-[2vw] bg-teal-300 rounded-full text-white"
+            >
+              {items?.length}
+            </div>
+            <Button
+              onClick={handleNavigate}
+              value={items?.length}
+              customeclass="relative 2xl:h-[3vw]"
+              variant="teal"
+              title="Cart"
+              leftIcon={
+                <UnionIcon customSize="w-[3rem] h-[3rem] 2xl:w-[2vw] 2xl:h-[2vw]" />
+              }
+              // widthClass="w-25 "
+              // heightClass="h-10"
+            />
+          </div>
+        </div>
+        {/* Hamburger Menu (Mobile) */}
+
+        {isVisible ? (
+          <RxCross1
+            size={24}
+            className="text-xl flex lg:hidden text-white cursor-pointer"
+            onClick={() => setIsVisible(false)}
+          />
+        ) : (
+          <SlMenu
+            size={24}
+            className="text-xl flex lg:hidden cursor-pointer text-white"
+            onClick={() => setIsVisible(true)}
+          />
+        )}
+      </div>
+    </header>
+  );
+}
